@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 namespace FSM
 {
+    // The types of messages that our agents can send to each other
     public enum MessageType
     {
         HiHoneyImHome, 
         StewsReady
     }
 
+    // Telegrams are the messages that are sent between agents -- don't create these yourself, just call DispatchMessage()
     public struct Telegram
     {
         public double DispatchTime;
@@ -26,10 +28,12 @@ namespace FSM
         }
     }
 
+    // This static class encapsulates all the message-related functions in our game
     public static class Message 
     {
         public static List<Telegram> telegramQueue = new List<Telegram>();
 
+        // This message is used by agents to dispatch messages to other agents -- use this from your own agents
         public static void DispatchMessage(double delay, int sender, int receiver, MessageType messageType)
         {
             Agent sendingAgent = AgentManager.GetAgent(sender);

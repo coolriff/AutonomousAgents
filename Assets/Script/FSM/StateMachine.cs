@@ -3,6 +3,8 @@ using System.Collections;
 
 namespace FSM
 {
+    // This class implements normal states, global states and state blips for a given agent.
+    // The agent should create its own StateMachine when its constructor is called.
     public class StateMachine<T>
     {
         private T owner;
@@ -15,6 +17,7 @@ namespace FSM
             this.owner = owner;
         }
 
+        // This holds the current state for the state machine
         // Unity properties
         public State<T> CurrentState
         {
@@ -22,12 +25,14 @@ namespace FSM
             set { currentState = value; }
         }
 
+        // The agent's previous state is needed to implement state blips
         public State<T> PreviousState
         {
             get { return previousState; }
             set { previousState = value; }
         }
 
+        // The agent's global state is always executed, if it exists
         public State<T> GlobalState
         {
             get { return globalState; }
@@ -49,11 +54,13 @@ namespace FSM
             }
         }
 
+        // This method attempts to deliver a message first via the global state, and if that fails
+        // via the current state
         public bool HandleMessage(Telegram telegram)
         {
             if (globalState != null)
             {
-                if(globalState.OnMessage(owner,telegram))
+                if (globalState.OnMesssage(owner, telegram))
                 {
                     return true;
                 }
@@ -61,7 +68,7 @@ namespace FSM
 
             if (currentState != null)
             {
-                if (currentState.OnMessage(owner, telegram))
+                if (currentState.OnMesssage(owner, telegram))
                 {
                     return true;
                 }
@@ -70,6 +77,7 @@ namespace FSM
             return false;
         }
 
+        // Switch to a new state and save the old one, so we can revert to it later if it's a state blip
         public void ChangeState(State<T> newState)
         {
             if (newState == null)
@@ -85,11 +93,13 @@ namespace FSM
             }
         }
 
+        // Invoked when a state blip is finished
         public void RevertToPreviousState()
         {
             ChangeState(previousState);
         }
 
+        // Checks whether the machine is in a given state
         public bool IsInState(State<T> state)
         {
             return state.Equals(currentState);
