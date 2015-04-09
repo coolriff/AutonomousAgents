@@ -53,7 +53,7 @@ namespace FSM
         {
             if (globalState != null)
             {
-                if(globalState.OnMessage(owner,telegram))
+                if (globalState.OnMessage(owner, telegram))
                 {
                     return true;
                 }

@@ -14,7 +14,7 @@ namespace FSM
 
         public override void Execute(MinersWife minersWife)
         {
-            switch (Random.Range(0,2))
+            switch (Random.Range(0, 2))
             {
                 case 0:
                     Debug.Log(minersWife.ID + " Moppin' the floor");
@@ -81,12 +81,12 @@ namespace FSM
 
         public override void Execute(MinersWife minersWife)
         {
-           Debug.Log(minersWife.ID + " Fussin' over food");
+            Debug.Log(minersWife.ID + " Fussin' over food");
         }
 
         public override void Exit(MinersWife minersWife)
         {
-          Debug.Log(minersWife.ID + " Puttin' the stew on the table");
+            Debug.Log(minersWife.ID + " Puttin' the stew on the table");
         }
 
         public override bool OnMessage(MinersWife minersWife, Telegram telegram)
@@ -114,13 +114,13 @@ namespace FSM
     {
         public override void Enter(MinersWife minersWife)
         {
-           
+
         }
 
         public override void Execute(MinersWife minersWife)
         {
             // There's always a 10% chance of a state blip in which MinersWife goes to the bathroom
-            if (Random.Range(0,9) == 1 && !minersWife.StateMachine.IsInState(new VisitBathroom()))
+            if (Random.Range(0, 9) == 1 && !minersWife.StateMachine.IsInState(new VisitBathroom()))
             {
                 minersWife.StateMachine.ChangeState(new VisitBathroom());
             }
@@ -144,7 +144,7 @@ namespace FSM
                     return false;
                 default:
                     return false;
-            }                 
+            }
         }
     }
 }

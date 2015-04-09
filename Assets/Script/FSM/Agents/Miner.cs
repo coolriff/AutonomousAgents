@@ -12,7 +12,6 @@ namespace FSM
 
         private StateMachine<Miner> stateMachine;
         private int wifeId;
-        private Location location;
         private int goldCarrying;
         private int moneyInBank;
         private int howThirsty;
@@ -28,12 +27,6 @@ namespace FSM
         {
             get { return wifeId; }
             set { wifeId = value; }
-        }
-
-        public Location MinerLocation
-        {
-            get { return location; }
-            set { location = value; }
         }
 
         public int GoldCarrying
@@ -66,11 +59,23 @@ namespace FSM
             stateMachine.GlobalState = new MinerGlobalState();
             wifeId = this.ID + 1;  // hack hack
         }
-        // Update is called once per frame
-        public override void Update()
+
+        void Start()
         {
-            howThirsty += 1;
-            stateMachine.Update();
+            StartCoroutine(PerformUpdate());
+        }
+
+        // Update is called once per frame
+        IEnumerator PerformUpdate()
+        {
+            while (true)
+            {
+                howThirsty += 1;
+                stateMachine.Update();
+                yield return new WaitForSeconds(0.8f);
+
+            }
+
         }
 
         public override bool HandleMessage(Telegram telegram)
