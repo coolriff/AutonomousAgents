@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FSM{
 
@@ -15,16 +16,19 @@ namespace FSM{
         }
 
         public Agent GetAgent(int id){
-            foreach (Agent agent in agents){
-                if (agent.ID == id){
-                    defaultAgent = agent;
-                    return defaultAgent;
-                }
-                else{
-                    break;
-                }
-            }
-            return defaultAgent;
+
+            return agents.First(agent => agent.ID == id);
+ 
+            //foreach (Agent agent in agents){
+            //    if (agent.ID == id){
+            //        defaultAgent = agent;
+            //        return defaultAgent;
+            //    }
+            //    else{
+            //        continue;
+            //    }
+            //}
+            //return defaultAgent;
         }
 
         public void DeleteAgent(Agent agent){
