@@ -2,20 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace FSM
-{
-    public class DoHouseWork : State<MinersWife>
-    {
+namespace FSM{
 
-        public override void Enter(MinersWife minersWife)
-        {
+    public class DoHouseWork : State<MinersWife>{
+
+        public override void Enter(MinersWife minersWife){
             Debug.Log(minersWife.ID + " Time to do some more housework!");
         }
 
-        public override void Execute(MinersWife minersWife)
-        {
-            switch (Random.Range(0, 2))
-            {
+        public override void Execute(MinersWife minersWife){
+            switch (Random.Range(0, 2)){
                 case 0:
                     Debug.Log(minersWife.ID + " Moppin' the floor");
                     break;
@@ -30,48 +26,32 @@ namespace FSM
             }
         }
 
-        public override void Exit(MinersWife minersWife)
-        {
-
-        }
-
-        public override bool OnMessage(MinersWife minersWife, Telegram telegram)
-        {
-            return false;
-        }
-
+        public override void Exit(MinersWife minersWife) { }
+        public override bool OnMessage(MinersWife minersWife, Telegram telegram){return false;}
     }
 
-    public class VisitBathroom : State<MinersWife>
-    {
-        public override void Enter(MinersWife minersWife)
-        {
+    public class VisitBathroom : State<MinersWife>{
+        public override void Enter(MinersWife minersWife){
             Debug.Log(minersWife.ID + " Walkin' to the can. Need to powda mah pretty li'lle nose");
         }
 
-        public override void Execute(MinersWife minersWife)
-        {
+        public override void Execute(MinersWife minersWife){
             Debug.Log(minersWife.ID + " Ahhhhhh! Sweet relief!");
             minersWife.StateMachine.RevertToPreviousState();  // this completes the state blip
         }
 
-        public override void Exit(MinersWife minersWife)
-        {
+        public override void Exit(MinersWife minersWife){
             Debug.Log(minersWife.ID + " Leavin' the Jon");
         }
 
-        public override bool OnMessage(MinersWife minersWife, Telegram telegram)
-        {
+        public override bool OnMessage(MinersWife minersWife, Telegram telegram){
             return false;
         }
     }
 
-    public class CookStew : State<MinersWife>
-    {
-        public override void Enter(MinersWife minersWife)
-        {
-            if (!minersWife.Cooking)
-            {
+    public class CookStew : State<MinersWife>{
+        public override void Enter(MinersWife minersWife){
+            if (!minersWife.Cooking){
                 // MinersWife sends a delayed message to herself to arrive when the food is ready
                 Debug.Log(minersWife.ID + " Putting the stew in the oven");
                 Message.DispatchMessage(2, minersWife.ID, minersWife.HusbandId, MessageType.StewsReady);
@@ -79,20 +59,16 @@ namespace FSM
             }
         }
 
-        public override void Execute(MinersWife minersWife)
-        {
+        public override void Execute(MinersWife minersWife){
             Debug.Log(minersWife.ID + " Fussin' over food");
         }
 
-        public override void Exit(MinersWife minersWife)
-        {
+        public override void Exit(MinersWife minersWife){
             Debug.Log(minersWife.ID + " Puttin' the stew on the table");
         }
 
-        public override bool OnMessage(MinersWife minersWife, Telegram telegram)
-        {
-            switch (telegram.messageType)
-            {
+        public override bool OnMessage(MinersWife minersWife, Telegram telegram){
+            switch (telegram.messageType){
                 case MessageType.HiHoneyImHome:
                     // Ignored here; handled in WifesGlobalState below
                     return false;
@@ -110,31 +86,20 @@ namespace FSM
         }
     }
 
-    public class WifesGlobalState : State<MinersWife>
-    {
-        public override void Enter(MinersWife minersWife)
-        {
+    public class WifesGlobalState : State<MinersWife>{
+        public override void Enter(MinersWife minersWife){}
 
-        }
-
-        public override void Execute(MinersWife minersWife)
-        {
+        public override void Execute(MinersWife minersWife){
             // There's always a 10% chance of a state blip in which MinersWife goes to the bathroom
-            if (Random.Range(0, 9) == 1 && !minersWife.StateMachine.IsInState(new VisitBathroom()))
-            {
+            if (Random.Range(0, 9) == 1 && !minersWife.StateMachine.IsInState(new VisitBathroom())){
                 minersWife.StateMachine.ChangeState(new VisitBathroom());
             }
         }
 
-        public override void Exit(MinersWife minersWife)
-        {
+        public override void Exit(MinersWife minersWife){}
 
-        }
-
-        public override bool OnMessage(MinersWife minersWife, Telegram telegram)
-        {
-            switch (telegram.messageType)
-            {
+        public override bool OnMessage(MinersWife minersWife, Telegram telegram){
+            switch (telegram.messageType){
                 case MessageType.HiHoneyImHome:
                     Debug.Log("Message handled by " + minersWife.ID + " at time ");
                     Debug.Log(minersWife.ID + "Hi honey. Let me make you some of mah fine country stew");

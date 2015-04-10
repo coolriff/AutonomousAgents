@@ -1,33 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace FSM
-{
-    public class AgentManager : MonoBehaviour
-    {
+namespace FSM{
 
-        public List<Agent> listOfAgents;
-        public int AddAgent(Agent agent)
-        {
-            listOfAgents.Add(agent);
-            return listOfAgents.IndexOf(agent);
+    public class AgentManager : MonoBehaviour{
+
+        public List<Agent> agents;
+
+        public int AddAgent(Agent agent){
+            agents.Add(agent);
+            return agents.IndexOf(agent);
         }
 
-        public Agent GetAgent(int id)
-        {
-            var selectedAgent = (from agent in listOfAgents
-                                 where agent.ID == id
-                                 select agent).FirstOrDefault();
-
-            return selectedAgent;
+        public Agent GetAgent(int id){
+            foreach (Agent agent in agents){
+                if (agent.ID == id){
+                    return agent;
+                }
+                else{
+                    break;
+                }
+            }
+            return null;
         }
 
-
-        public void RemoveAgent(Agent agent)
-        {
-            listOfAgents.Remove(agent);
+        public void DeleteAgent(Agent agent){
+            agents.Remove(agent);
         }
     }
 }

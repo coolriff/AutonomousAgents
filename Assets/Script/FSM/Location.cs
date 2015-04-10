@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace FSM
-{
-    public enum Location
-    {
+namespace FSM{
+
+    public enum Location{
         shack,
         goldMine,
         bank,

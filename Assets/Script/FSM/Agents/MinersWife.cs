@@ -1,41 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace FSM
-{
-    public class MinersWife : Agent
-    {
+namespace FSM{
+
+    public class MinersWife : Agent{
+
         private StateMachine<MinersWife> stateMachine;
         private int husbandId;
         private Location location;
         private bool cooking;
 
-        public StateMachine<MinersWife> StateMachine
-        {
-            get { return stateMachine; }
-            set { stateMachine = value; }
-        }
-        public int HusbandId
-        {
-            get { return husbandId; }
-            set { husbandId = value; }
-        }
+        public StateMachine<MinersWife> StateMachine{get { return stateMachine; }set { stateMachine = value; }}
+        public int HusbandId{get { return husbandId; }set { husbandId = value; }}
+        public Location MinerLocation{get { return location; }set { location = value; }}
+        public bool Cooking{get { return cooking; }set { cooking = value; }}
 
-        public Location MinerLocation
-        {
-            get { return location; }
-            set { location = value; }
-        }
-
-        public bool Cooking
-        {
-            get { return cooking; }
-            set { cooking = value; }
-        }
-
-        public MinersWife()
-            : base()
-        {
+        public MinersWife(): base(){
             stateMachine = new StateMachine<MinersWife>(this);
             stateMachine.CurrentState = new DoHouseWork();
             stateMachine.GlobalState = new WifesGlobalState();
@@ -43,23 +23,19 @@ namespace FSM
         }
 
         // Update is called once per frame
-        void Start()
-        {
+        void Start(){
             stateMachine.Update();
         }
 
-        IEnumerator PerformUpdate()
-        {
-            while (true)
-            {
+        IEnumerator PerformUpdate(){
+            while (true){
                 stateMachine.Update();
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(1.0f);
             }
         }
 
         // This method is invoked when the agent receives a message
-        public override bool HandleMessage(Telegram telegram)
-        {
+        public override bool HandleMessage(Telegram telegram){
             return stateMachine.HandleMessage(telegram);
         }
     }
