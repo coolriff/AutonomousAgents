@@ -7,6 +7,7 @@ namespace FSM{
     public class AgentManager : MonoBehaviour{
 
         public List<Agent> agents;
+        public Agent defaultAgent;
 
         public int AddAgent(Agent agent){
             agents.Add(agent);
@@ -16,13 +17,14 @@ namespace FSM{
         public Agent GetAgent(int id){
             foreach (Agent agent in agents){
                 if (agent.ID == id){
-                    return agent;
+                    defaultAgent = agent;
+                    return defaultAgent;
                 }
                 else{
                     break;
                 }
             }
-            return null;
+            return defaultAgent;
         }
 
         public void DeleteAgent(Agent agent){
