@@ -7,7 +7,10 @@ namespace FSM{
         shack,
         goldMine,
         bank,
-        saloon
+        saloon,
+        outlawHome,
+        Patrol_1,
+        Patrol_2,
+        Patrol_3
     }
 }
-

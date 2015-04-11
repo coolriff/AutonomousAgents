@@ -40,6 +40,23 @@ namespace FSM{
             }
         }
 
+        // handler for sence
+        public bool HandleSenseEvent(Sense sense){
+            if (globalState != null){
+                if (globalState.OnSenseEvent(owner, sense)){
+                    return true;
+                }
+
+            }
+            if (currentState != null){
+                if (currentState.OnSenseEvent(owner, sense)){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // handler for message
         public bool HandleMessage(Telegram telegram){
             if (globalState != null){
                 if (globalState.OnMessage(owner, telegram)){

@@ -47,6 +47,10 @@ namespace FSM{
             return stateMachine.HandleMessage(telegram);
         }
 
+        public override bool HandleSenseEvent(Sense sense){
+            return stateMachine.HandleSenseEvent(sense);
+        }
+
         public bool PocketsFull(){
             if (goldCarrying >= MaxNuggets)
                 return true;

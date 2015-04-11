@@ -28,6 +28,7 @@ namespace FSM{
 
         public override void Exit(MinersWife minersWife) { }
         public override bool OnMessage(MinersWife minersWife, Telegram telegram){return false;}
+        public override bool OnSenseEvent(MinersWife agent, Sense sense){return false;}
     }
 
     public class VisitBathroom : State<MinersWife>{
@@ -47,6 +48,8 @@ namespace FSM{
         public override bool OnMessage(MinersWife minersWife, Telegram telegram){
             return false;
         }
+
+        public override bool OnSenseEvent(MinersWife agent, Sense sense) { return false; }
     }
 
     public class CookStew : State<MinersWife>{
@@ -84,6 +87,8 @@ namespace FSM{
                     return false;
             }
         }
+
+        public override bool OnSenseEvent(MinersWife agent, Sense sense) { return false; }
     }
 
     public class WifesGlobalState : State<MinersWife>{
@@ -111,5 +116,7 @@ namespace FSM{
                     return false;
             }
         }
+
+        public override bool OnSenseEvent(MinersWife agent, Sense sense) { return false; }
     }
 }

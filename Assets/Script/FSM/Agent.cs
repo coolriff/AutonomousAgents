@@ -15,6 +15,7 @@ namespace FSM{
         int targetIndex;
 
         abstract public bool HandleMessage(Telegram telegram);
+        abstract public bool HandleSenseEvent(Sense sense);
 
         // Code below moved from unit.cs
         public void MoveToNewLocation(Vector3 currentTarget){

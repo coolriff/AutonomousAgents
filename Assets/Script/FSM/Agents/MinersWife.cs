@@ -38,6 +38,10 @@ namespace FSM{
         public override bool HandleMessage(Telegram telegram){
             return stateMachine.HandleMessage(telegram);
         }
+
+        public override bool HandleSenseEvent(Sense sense){
+            return stateMachine.HandleSenseEvent(sense);
+        }
     }
 
 }

@@ -37,6 +37,10 @@ namespace FSM{
             return false;
         }
 
+        public override bool OnSenseEvent(Miner agent, Sense sense){
+            return false;
+        }
+
     }
 
     // In this state, the miner goes to the bank and deposits gold
@@ -69,6 +73,10 @@ namespace FSM{
         }
 
         public override bool OnMessage(Miner agent, Telegram telegram){
+            return false;
+        }
+
+        public override bool OnSenseEvent(Miner agent, Sense sense){
             return false;
         }
     }
@@ -114,6 +122,10 @@ namespace FSM{
                     return false;
             }
         }
+
+        public override bool OnSenseEvent(Miner agent, Sense sense){
+            return false;
+        }
     }
 
     // In this state, the miner goes to the saloon to drink
@@ -141,6 +153,10 @@ namespace FSM{
         public override bool OnMessage(Miner agent, Telegram telegram){
             return false;
         }
+
+        public override bool OnSenseEvent(Miner agent, Sense sense){
+            return false;
+        }
     }
 
     // In this state, the miner eats the food that Elsa has prepared
@@ -161,14 +177,10 @@ namespace FSM{
         public override bool OnMessage(Miner agent, Telegram telegram){
             return false;
         }
-    }
 
-    // If the agent has a global state, then it is executed every Update() cycle
-    public class MinerGlobalState : State<Miner>{
-        public override void Enter(Miner miner){}
-        public override void Execute(Miner miner){}
-        public override void Exit(Miner miner){}
-        public override bool OnMessage(Miner agent, Telegram telegram){return false;}
+        public override bool OnSenseEvent(Miner agent, Sense sense){
+            return false;
+        }
     }
 
     public class MovingTo : State<Miner>{
@@ -188,6 +200,19 @@ namespace FSM{
 
         public override void Exit(Miner agent){}
         public override bool OnMessage(Miner agent, Telegram telegram){return true;}
+
+        public override bool OnSenseEvent(Miner agent, Sense sense){
+            return false;
+        }
     }
 
+    // If the agent has a global state, then it is executed every Update() cycle
+    public class MinerGlobalState : State<Miner>
+    {
+        public override void Enter(Miner miner) { }
+        public override void Execute(Miner miner) { }
+        public override void Exit(Miner miner) { }
+        public override bool OnMessage(Miner agent, Telegram telegram) { return false; }
+        public override bool OnSenseEvent(Miner agent, Sense sense) { return false; }
+    }
 }
