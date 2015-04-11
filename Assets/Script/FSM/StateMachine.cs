@@ -8,6 +8,7 @@ namespace FSM{
         private State<T> currentState = null;
         private State<T> previousState = null;
         private State<T> globalState = null;
+        SenseEvent se = new SenseEvent();
 
         public StateMachine(T owner){
             this.owner = owner;
@@ -38,6 +39,7 @@ namespace FSM{
             if (currentState != null){
                 currentState.Execute(owner);
             }
+            se.UpdateSensor();
         }
 
         // handler for sence

@@ -43,7 +43,19 @@ namespace FSM
 
         public override bool OnSenseEvent(Sheriff sheriff, Sense sense)
         {
-            return false;
+            switch (sense.senseType)
+            {
+                case SenseType.hearing:
+                    return false;
+                case SenseType.smell:
+                    return false;
+                case SenseType.sight:
+                    Debug.Log("<color=red> Hey you! </color>");
+                    sheriff.StateMachine.ChangeState(new ChaseOutLaw());
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 
@@ -87,7 +99,19 @@ namespace FSM
 
         public override bool OnSenseEvent(Sheriff sheriff, Sense sense)
         {
-            return false;
+            switch (sense.senseType)
+            {
+                case SenseType.hearing:
+                    return false;
+                case SenseType.smell:
+                    return false;
+                case SenseType.sight:
+                    Debug.Log("<color=red> Hey you! </color>");
+                    sheriff.StateMachine.ChangeState(new ChaseOutLaw());
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 
@@ -131,7 +155,69 @@ namespace FSM
 
         public override bool OnSenseEvent(Sheriff sheriff, Sense sense)
         {
+            switch (sense.senseType)
+            {
+                case SenseType.hearing:
+                    return false;
+                case SenseType.smell:
+                    return false;
+                case SenseType.sight:
+                    Debug.Log("<color=red> Hey you! </color>");
+                    sheriff.StateMachine.ChangeState(new ChaseOutLaw());
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+
+    public class ChaseOutLaw : State<Sheriff>
+    {
+        public override void Enter(Sheriff sheriff)
+        {
+            sheriff.targetLocation = Location.outlawPosition;
+            var outlaw = GameObject.FindGameObjectWithTag("Outlaw");
+
+            if (sheriff.location != sheriff.targetLocation)
+            {
+                sheriff.MoveToNewLocation(outlaw.transform.position);
+            }
+        }
+
+        public override void Execute(Sheriff sheriff)
+        {
+            Debug.Log(sheriff.ID + "I got you! Don't run!!!!!!!!!!!!!!!!!!!!!!!");
+
+            if (sheriff.location != sheriff.targetLocation)
+            {
+                sheriff.StateMachine.ChangeState(new ChaseOutLaw());
+            }
+        }
+
+        public override void Exit(Sheriff sheriff)
+        {
+        }
+
+        public override bool OnMessage(Sheriff sheriff, Telegram telegram)
+        {
             return false;
+        }
+
+        public override bool OnSenseEvent(Sheriff sheriff, Sense sense)
+        {
+            switch (sense.senseType)
+            {
+                case SenseType.hearing:
+                    return false;
+                case SenseType.smell:
+                    return false;
+                case SenseType.sight:
+                    Debug.Log("<color=red> Hey you! </color>");
+                    sheriff.StateMachine.ChangeState(new ChaseOutLaw());
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 

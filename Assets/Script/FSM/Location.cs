@@ -11,6 +11,7 @@ namespace FSM{
         outlawHome,
         Patrol_1,
         Patrol_2,
-        Patrol_3
+        Patrol_3,
+        outlawPosition
     }
 }

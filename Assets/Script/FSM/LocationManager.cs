@@ -87,6 +87,29 @@ namespace FSM{
             {
                 sheriffLocations.Add(Location.Patrol_3, patrol2.transform);
             }
+
+            var temp = GameObject.FindGameObjectWithTag("Outlaw");
+            if (temp == null)
+            {
+                Debug.Log("There is no temp game object");
+            }
+            else
+            {
+                sheriffLocations.Add(Location.outlawPosition, temp.transform);
+            }
+        }
+
+        void update()
+        {
+            var temp = GameObject.FindGameObjectWithTag("Outlaw");
+            if (temp == null)
+            {
+                Debug.Log("There is no temp game object");
+            }
+            else
+            {
+                sheriffLocations[Location.outlawPosition] = temp.transform;
+            }
         }
     }
 }

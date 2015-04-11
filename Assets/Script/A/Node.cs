@@ -16,6 +16,7 @@ public class Node : IHeapItem<Node>{
     public int movementPenalty;
     int heapIndex;
     public Node parent;
+    public float attenuation;
 
     public int fCost { get { return gCost + hCost; } }
     public int HeapIndex { get { return heapIndex; } set { heapIndex = value; } }
@@ -26,6 +27,14 @@ public class Node : IHeapItem<Node>{
         this.gridX = gridX;
         this.gridY = gridY;
         movementPenalty = penalty;
+        if (this.walkable)
+        {
+            attenuation = 1.0f;
+        }
+        else
+        {
+            attenuation = 2.0f;
+        }
     }
 
     public int CompareTo(Node nodeToCompare){
@@ -35,5 +44,4 @@ public class Node : IHeapItem<Node>{
         }
         return -compare;
     }
-
 }

@@ -85,6 +85,18 @@ public class Grid : MonoBehaviour{
         return grid[x, y];
     }
 
+    public Node NodeFromWorldPointP(Vector3 worldPosition)
+    {
+        float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
+        float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
+        percentX = Mathf.Clamp01(percentX);
+        percentY = Mathf.Clamp01(percentY);
+        int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
+        int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+        Node[,] newGrid = new Node[gridSizeX, gridSizeY];
+        return newGrid[x, y];
+    }
+
     void OnDrawGizmos(){
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
         if (grid != null && displayGridGizmos){
